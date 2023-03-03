@@ -1,0 +1,103 @@
+.App {
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+  
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  
+    .forms-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+  
+      .form-item {
+        margin: 0 10px;
+      }
+  
+      .inputContainer {
+        margin: 0 15px;
+  
+        .inputLabel {
+          font-size: 1.2rem;
+          color: #5b5f97;
+          margin-bottom: 5px;
+        }
+  
+        .input {
+          display: flex;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+          align-items: center;
+          background-color: #fff;
+          border-radius: 10px;
+          padding: 10px;
+  
+          .MuiSelect-root {
+            min-width: 80px;
+            margin-left: 10px;
+          }
+  
+          .MuiAvatar-root {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+          }
+  
+          .MuiSelect-select {
+            font-size: 1.2rem;
+            color: #5b5f97;
+          }
+  
+          .MuiInputBase-input {
+            font-size: 1.2rem;
+            color: #5b5f97;
+            width: 120px;
+            text-align: right;
+            background-color: #fff;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+  
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+          }
+        }
+      }
+  
+      .buttons-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 35px;
+  
+        button {
+          font-size: 1.2rem;
+          background-color: #5b5f97;
+          color: #fff;
+          border-radius: 10px;
+          border: none;
+          padding: 8px 25px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+  
+          &:hover {
+            background-color: #424771;
+          }
+  
+          &:disabled {
+            opacity: 0.5;
+            cursor: default;
+          }
+        }
+      }
+    }
+  }
+  
