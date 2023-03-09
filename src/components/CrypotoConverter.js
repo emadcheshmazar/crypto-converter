@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CryptoInput from "./CryptoInput";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../style/CryptoConverter.scss'
-
+import { Button } from "antd";
+import reverseIcon from "../assets/reverse.png";
+import reverseIconUpDown from "../assets/reverse-updown.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../style/CryptoConverter.scss";
 
 function CrypotoConverter() {
   const [coins, setCoins] = useState([]);
@@ -12,6 +14,7 @@ function CrypotoConverter() {
   const [toCoin, setToCoin] = useState("");
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
+  const [reverse, setReverse] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,20 +34,21 @@ function CrypotoConverter() {
 
   const handleConvert = () => {
     if (fromAmount && fromCoin && toCoin) {
-      const fromCoinRate = coins.find(
+      const fromCoinPrice = coins.find(
         (coin) => coin.symbol === fromCoin
       )?.current_price;
-      const toCoinRate = coins.find(
+      const toCoinPrice = coins.find(
         (coin) => coin.symbol === toCoin
       )?.current_price;
-      if (fromCoinRate && toCoinRate) {
-        const convertedAmount = fromAmount * (fromCoinRate / toCoinRate);
+      if (fromCoinPrice && toCoinPrice) {
+        const convertedAmount = fromAmount * (fromCoinPrice / toCoinPrice);
         setToAmount(convertedAmount.toFixed(4));
       }
     }
   };
 
   const handleReverse = () => {
+    setReverse(prevState => !prevState)
     setFromCoin(toCoin);
     setToCoin(fromCoin);
     setFromAmount(toAmount);
@@ -52,26 +56,28 @@ function CrypotoConverter() {
   };
 
   return (
-    <div className="App d-flex row">
-      <h1>Crypto Converter</h1>
-      <div className="forms-container">
-        <CryptoInput
-          title={"From Coin:"}
-          coins={coins}
-          loading={loading}
-          inputValue={fromAmount}
-          selectValue={fromCoin}
-          InputOnChange={(e) => setFromAmount(e.target.value)}
-          selectOnChange={(e) => setFromCoin(e.target.value)}
-          type="number"
-          readOnly={false}
-        />
-        <div className="buttons-container">
-          <button onClick={handleReverse} disabled={loading}>
-            Reverse
-          </button>
+    <div className="App">
+      <h1 className="title mb-5">Crypto Converter</h1>
+      <div className="input-wrapper col-12">
+        <div className="input-container col-12">
+          <CryptoInput
+            title={"From Coin:"}
+            coins={coins}
+            loading={loading}
+            inputValue={fromAmount}
+            selectValue={fromCoin}
+            InputOnChange={(e) => setFromAmount(e.target.value)}
+            selectOnChange={(e) => setFromCoin(e)}
+            type="number"
+            readOnly={false}
+          />
         </div>
-        <div className="forms-container">
+        <div className="reverse-container">
+          <span className="reverse" onClick={handleReverse}>
+            <img src={reverse ? reverseIcon : reverseIconUpDown} alt="reverse-button" />
+          </span>
+        </div>
+        <div className="input-container col-12">
           <CryptoInput
             title={"To Coin:"}
             coins={coins}
@@ -79,7 +85,7 @@ function CrypotoConverter() {
             inputValue={toAmount}
             selectValue={toCoin}
             InputOnChange={(e) => setFromAmount(e.target.value)}
-            selectOnChange={(e) => setToCoin(e.target.value)}
+            selectOnChange={(e) => setToCoin(e)}
             type="text"
             readOnly={true}
           />
